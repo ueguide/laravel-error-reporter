@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package uegProto.laravelErrorReporter.api;
+
+import "google/protobuf/struct.proto";
+
+service ErrorService {
+    rpc ReportError(ReportErrorRequest) returns (ReportErrorResponse) {}
+}
+
+message Credentials {
+    string projectKey = 1;
+    string secretKey = 2;
+}
+
+message StackReport {
+    string errorMessage = 1;
+    string filename = 2;
+    string lineNumber = 3;
+    string stackTrace = 4;
+}
+
+message ReportErrorRequest {
+    Credentials credentials = 1;
+    string errorGroupName = 2;
+    StackReport stackReport = 3;
+    google.protobuf.Struct customData = 4;
+}
+
+message ReportErrorResponse {
+    string status = 1;
+    string error = 2;
+}
