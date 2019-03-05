@@ -1,9 +1,18 @@
 <?php
 // GENERATED CODE -- DO NOT EDIT!
 
-namespace UegProto\LaravelErrorReporter\Api;
+namespace Ueg\Api\Error;
 
 /**
+ * service ErrorService {
+ *    rpc ReportError(ReportErrorRequest) returns (ReportErrorResponse) {
+ * 		option (google.api.http) = {
+ * 			post: "/v1/report"
+ * 			body: "*"
+ * 		};
+ * 	}
+ * }
+ *
  */
 class ErrorServiceClient extends \Grpc\BaseStub {
 
@@ -17,15 +26,15 @@ class ErrorServiceClient extends \Grpc\BaseStub {
     }
 
     /**
-     * @param \UegProto\LaravelErrorReporter\Api\ReportErrorRequest $argument input argument
+     * @param \Ueg\Api\Error\ReportErrorRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
      */
-    public function ReportError(\UegProto\LaravelErrorReporter\Api\ReportErrorRequest $argument,
+    public function ReportError(\Ueg\Api\Error\ReportErrorRequest $argument,
       $metadata = [], $options = []) {
-        return $this->_simpleRequest('/uegProto.laravelErrorReporter.api.ErrorService/ReportError',
+        return $this->_simpleRequest('/ueg.api.error.ErrorService/ReportError',
         $argument,
-        ['\UegProto\LaravelErrorReporter\Api\ReportErrorResponse', 'decode'],
+        ['\Ueg\Api\Error\ReportErrorResponse', 'decode'],
         $metadata, $options);
     }
 

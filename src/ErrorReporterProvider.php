@@ -15,10 +15,8 @@ class ErrorReporterProvider extends ServiceProvider
     {
         $this->app->singleton('ueg-error-reporter', function ($app) {
             $client = new ErrorReporterClient(
-                config('services.ueg-error-reporter.host')
+                config('services.ueg-error-reporter')
             );
-            $client->secret_key = config('services.ueg-error-reporter.secret_key');
-            $client->project_key = config('services.ueg-error-reporter.project_key');
             
             return $client;
         });

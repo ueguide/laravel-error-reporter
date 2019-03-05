@@ -28,7 +28,11 @@ class TestCase extends BaseTestCase
     {
         $app['config']->set(
             'services.ueg-error-reporter.host',
-            'localhost:9090'
+            'test.host'
+        );
+        $app['config']->set(
+            'services.ueg-error-reporter.port',
+            '443'
         );
         $app['config']->set(
             'services.ueg-error-reporter.project_key',
@@ -38,6 +42,10 @@ class TestCase extends BaseTestCase
             'services.ueg-error-reporter.secret_key',
             'test-secret-key'
         );
+        //$app['config']->set(
+        //    'services.ueg-error-reporter.ca_path',
+        //    '/path/to/ca/file.pem'
+        //);
     }
 
     /**

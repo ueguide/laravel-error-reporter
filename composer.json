@@ -22,8 +22,8 @@
     "autoload": {
         "psr-4": {
             "Ueg\\ErrorReporter\\": "src",
-            "UegProto\\LaravelErrorReporter\\Api\\": "UegProto/LaravelErrorReporter/Api",
-            "GPBMetadata\\UegProto\\LaravelErrorReporter\\": "GPBMetadata/UegProto/LaravelErrorReporter"
+            "Ueg\\Api\\Error\\": "Ueg/Api/Error",
+            "GPBMetadata\\Ueg\\Api\\Error\\": "GPBMetadata/Ueg/Api/Error"
         }
     },
     "autoload-dev": {

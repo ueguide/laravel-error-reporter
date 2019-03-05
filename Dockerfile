@@ -5,6 +5,8 @@ RUN apt-get update && apt-get install -y \
 	curl \
 	unzip
 
+RUN apt-get remove libssl-dev
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 

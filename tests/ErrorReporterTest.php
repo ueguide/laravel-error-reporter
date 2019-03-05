@@ -4,7 +4,7 @@ namespace Ueg\ErrorReporter\Tests;
 
 use Ueg\ErrorReporter\Tests\TestCase;
 use Ueg\ErrorReporter\ErrorReporterClient;
-use UegProto\LaravelErrorReporter\Api\ReportErrorResponse;
+use Ueg\Api\Error\ReportErrorResponse;
 
 class StubSimpleRequest
 {
@@ -26,7 +26,7 @@ class StubSimpleRequest
 
 class StubClient
 {
-    public function ReportError(\UegProto\LaravelErrorReporter\Api\ReportErrorRequest $argument,
+    public function ReportError(\Ueg\Api\Error\ReportErrorRequest $argument,
     $metadata = [], $options = []) 
     {
         $this->argument = $argument;
@@ -82,4 +82,20 @@ class ErrorReporterTest extends TestCase
             $this->assertTrue($result);
         }
     }
+
+    //public function testItReportsErrorReal()
+    //{
+    //    
+    //    $manager = $this->app->make('ueg-error-reporter');
+    //    $manager->tag('host', 'http://ueguide.io');
+    //    $manager->tag('uri', '/foobar');
+    //    
+    //    try {
+    //        if ($foo == 'bar') echo "foobar";
+    //        $this->assertTrue(false);
+    //    } catch (\Exception $e) {
+    //        $result = $manager->report($e);
+    //        $this->assertTrue($result);
+    //    }
+    //}
 }

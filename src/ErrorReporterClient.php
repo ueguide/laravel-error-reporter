@@ -2,10 +2,10 @@
 
 namespace Ueg\ErrorReporter;
 
-use UegProto\LaravelErrorReporter\Api\ErrorServiceClient;
-use UegProto\LaravelErrorReporter\Api\ReportErrorRequest;
-use UegProto\LaravelErrorReporter\Api\Credentials;
-use UegProto\LaravelErrorReporter\Api\StackReport;
+use Ueg\Api\Error\ErrorServiceClient;
+use Ueg\Api\Error\ReportErrorRequest;
+use Ueg\Api\Error\Credentials;
+use Ueg\Api\Error\StackReport;
 use Google\Protobuf\Struct;
 use Google\Protobuf\Value;
 
@@ -16,14 +16,38 @@ class ErrorReporterClient
     public $project_key;
     public $custom_data = [];
 
-    public function __construct($host)
+    public function __construct($config)
     {
-        $this->client = new ErrorServiceClient(
-			$host, 
-			[
-            	'credentials' => \Grpc\ChannelCredentials::createInsecure(),
-			]
-		);
+        $this->secret_key = $config['secret_key'];
+        $this->project_key = $config['project_key'];
+
+        $host = $config['host'];
+        $port = $config['port'];
+
+        if (!empty($config['ca_path'])) {
+            // set credentials root
+            \Grpc\ChannelCredentials::setDefaultRootsPem(
+                file_get_contents($config['ca_path'])
+            );
+            $this->client = new ErrorServiceClient(
+                $host . ':' . $port, 
+                [
+                    'grpc.ssl_target_name_override' => $host,
+                    'grpc.default_authority' => $host,
+                    'credentials' => \Grpc\ChannelCredentials::createSsl(
+                        file_get_contents($config['ca_path'])
+                    ),
+                ]
+            );
+        } else {
+            $this->client = new ErrorServiceClient(
+                $host . ':' . $port, 
+                [
+                    'credentials' => \Grpc\ChannelCredentials::createInsecure(),
+                ]
+            );
+        }
+
     }
 
     public function tag($key, $val)
@@ -37,7 +61,7 @@ class ErrorReporterClient
             $request = $this->buildNewRequest($e);
 
             list($reply, $status) = $this->client->ReportError($request)->wait();
-            
+            //dd($status);
             if ($reply) {
                 if ($reply->getStatus() === 'Ok') {
                     return true;

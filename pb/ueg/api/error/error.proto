@@ -1,8 +1,18 @@
 syntax = "proto3";
 
-package uegProto.laravelErrorReporter.api;
+package ueg.api.error;
 
+//import "google/api/annotations.proto";
 import "google/protobuf/struct.proto";
+
+//service ErrorService {
+//    rpc ReportError(ReportErrorRequest) returns (ReportErrorResponse) {
+//		option (google.api.http) = {
+//			post: "/v1/report"
+//			body: "*"
+//		};
+//	}
+//}
 
 service ErrorService {
     rpc ReportError(ReportErrorRequest) returns (ReportErrorResponse) {}
